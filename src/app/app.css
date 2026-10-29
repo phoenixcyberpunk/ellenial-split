@@ -1,0 +1,69 @@
+/*
+  Standalone app theme. Same token NAMES as Gillefeeling, so the shared module looks native
+  in both. Palette borrowed from Gillefeeling (Ellen's flower logo colours) as a placeholder
+  until this app gets its own look. All text pairs checked for WCAG AA (4.5:1+).
+*/
+:root {
+  --bg: #FEF2E2;
+  --surface: #FFFBF5;
+  --surface-soft: #F1EAF8;
+  --ink: #1F1A2E;
+  --ink-muted: #575166;
+  --ink-faint: #6A6476;
+  --line: #EDE1D1;
+  --line-strong: #D6C8B6;
+  --accent: #342E86;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E6DDF3;
+  --danger: #A2433B;
+  --cover-sun: #F3E3B5;
+  --cover-peach: #F2D6C4;
+  --cover-rose: #EED3D6;
+  --cover-lilac: #DDD6EC;
+  --cover-sky: #D3E2EC;
+  --cover-sage: #D5E3D6;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tap: 52px;
+  --content-max: 440px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17141F;
+    --surface: #221E2C;
+    --surface-soft: #2D2640;
+    --ink: #F3EEF8;
+    --ink-muted: #C2BACF;
+    --ink-faint: #A9A1B7;
+    --line: #332D40;
+    --line-strong: #4A4259;
+    --accent: #B39AE8;
+    --accent-ink: #1A1430;
+    --accent-soft: #3A3052;
+    --danger: #E59A91;
+    --cover-sun: #4A4128;
+    --cover-peach: #4A362B;
+    --cover-rose: #47343A;
+    --cover-lilac: #3C3749;
+    --cover-sky: #2E3E48;
+    --cover-sage: #31423A;
+    color-scheme: dark;
+  }
+}
+
+html, body { margin: 0; background: var(--bg); color: var(--ink); -webkit-text-size-adjust: 100%; }
+body { font-family: var(--font-body); }
+a { color: var(--accent); }
+
+.app-home { padding-top: 40px; }
+.app-hero { display: flex; flex-direction: column; gap: 10px; }
+.app-logo { margin: 0 0 8px; font: 600 22px var(--font-display); color: var(--accent); }
+.app-logo span { color: var(--ink-faint); }
+.app-promises { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; color: var(--ink-muted); font-size: 15px; }
+.app-promises li { display: flex; align-items: center; gap: 8px; }
+.app-promises .sp-icon { width: 18px; height: 18px; color: var(--accent); flex: none; }
+.app-room-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.app-paste { margin-top: 8px; }
+.app-footer { margin-top: auto; padding-top: 24px; text-align: center; font-size: 13px; color: var(--ink-faint); }
