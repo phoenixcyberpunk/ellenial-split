@@ -3,6 +3,9 @@
   Colours, type and spacing come from the host's design tokens (Gillefeeling's names);
   the fallbacks are the same calm palette, so the module also looks right on its own.
   No red for money, ever: red is only for "delete", which is a different kind of thing.
+  Ellenial brand (1 Nov 2026): Peach/Card/Lavender/Periwinkle/Indigo/Night/Muted/Line, Fraunces + DM Sans.
+  Accessibility: tappable things get a 3:1 --sp-edge outline (Line is decorative only); selected things get
+  Periwinkle + an outline + a ✓, never colour alone; Periwinkle is a fill, never text.
 */
 
 .sp-screen {
@@ -11,15 +14,17 @@
   --sp-soft: var(--surface-soft, #F1EAF8);
   --sp-ink: var(--ink, #1F1A2E);
   --sp-muted: var(--ink-muted, #575166);
-  --sp-faint: var(--ink-faint, #6A6476);
+  --sp-faint: var(--ink-muted, #575166);
   --sp-line: var(--line, #EDE1D1);
-  --sp-line-strong: var(--line-strong, #D6C8B6);
+  --sp-edge: var(--edge, #575166);
+  --sp-peri: var(--periwinkle, #B7B1E6);
+  --sp-on-peri: var(--on-periwinkle, #1F1A2E);
   --sp-accent: var(--accent, #342E86);
   --sp-accent-ink: var(--accent-ink, #FFFFFF);
-  --sp-accent-soft: var(--accent-soft, #E6DDF3);
+  --sp-accent-soft: var(--surface-soft, #F1EAF8);
   --sp-danger: var(--danger, #A2433B);
   --sp-display: var(--font-display, Georgia, serif);
-  --sp-body: var(--font-body, system-ui, -apple-system, 'Segoe UI', sans-serif);
+  --sp-body: var(--font-body, 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif);
   --sp-tap: var(--tap, 52px);
 
   box-sizing: border-box;
@@ -61,6 +66,7 @@
 .sp-btn-quiet { background: transparent; color: var(--sp-muted); min-height: 44px; }
 .sp-btn-danger { background: transparent; color: var(--sp-danger); border-color: var(--sp-danger); }
 .sp-btn:focus-visible, .sp-chip:focus-visible, .sp-row:focus-visible, .sp-icon-btn:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 2px; }
+.sp-link:focus-visible, .sp-details summary:focus-visible, .sp-mini-btn:focus-visible, .sp-balance-action:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 2px; border-radius: 6px; }
 .sp-link { background: none; border: none; padding: 4px 0; color: var(--sp-accent); font: 600 14px var(--sp-body); cursor: pointer; text-align: left; }
 .sp-mini-btn {
   display: inline-flex; align-items: center; gap: 4px; flex: none;
@@ -80,35 +86,41 @@
 .sp-field { display: flex; flex-direction: column; }
 .sp-field input, .sp-inline-form input, .sp-exact-row input {
   width: 100%; min-height: 48px; padding: 0 14px;
-  border: 1.5px solid var(--sp-line-strong); border-radius: 14px;
+  border: 1.5px solid var(--sp-edge); border-radius: 14px;
   background: var(--sp-surface); color: var(--sp-ink);
   font: 16px var(--sp-body); /* 16px stops iPhone from zooming in */
 }
-.sp-field input:focus, .sp-inline-form input:focus, .sp-exact-row input:focus, .sp-amount input:focus { outline: none; border-color: var(--sp-accent); }
+.sp-field input:focus, .sp-inline-form input:focus, .sp-exact-row input:focus, .sp-amount input:focus { outline: 2px solid var(--sp-accent); outline-offset: 1px; border-color: var(--sp-accent); }
 .sp-field-inline { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
 .sp-field-inline .sp-label { margin: 0; }
 .sp-field-inline input { width: auto; }
 .sp-amount { display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 8px; }
 .sp-amount .sp-label { grid-column: 1 / -1; }
 .sp-amount input {
-  width: 100%; border: none; border-bottom: 2px solid var(--sp-line-strong); background: transparent;
+  width: 100%; border: none; border-bottom: 2px solid var(--sp-edge); background: transparent;
   font: 600 40px/1.2 var(--sp-display); color: var(--sp-ink); padding: 4px 0;
 }
-.sp-amount input[aria-invalid='true'] { border-bottom-color: var(--sp-muted); }
+.sp-amount input[aria-invalid='true'] { border-bottom-style: dashed; }
+.sp-amount-hint { grid-column: 1 / -1; margin: 6px 0 0; font-size: 13px; color: var(--sp-ink); }
 .sp-amount-cur { font-weight: 600; color: var(--sp-muted); }
 .sp-inline-form { display: flex; gap: 8px; align-items: center; flex: 1; }
 
 .sp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .sp-chip {
   min-height: 40px; padding: 0 16px; border-radius: 999px;
-  border: 1.5px solid var(--sp-line-strong); background: var(--sp-surface); color: var(--sp-ink);
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1.5px solid var(--sp-edge); background: var(--sp-surface); color: var(--sp-ink);
   font: 500 15px var(--sp-body); cursor: pointer;
 }
-.sp-chip.is-on { background: var(--sp-accent); border-color: var(--sp-accent); color: var(--sp-accent-ink); }
+.sp-chip .sp-icon { width: 16px; height: 16px; margin-left: -4px; }
+/* Selected: Periwinkle fill + Indigo outline + ✓ (shape and mark, not colour alone) */
+.sp-chip.is-on { background: var(--sp-peri); border: 2px solid var(--sp-accent); color: var(--sp-on-peri); font-weight: 600; padding: 0 15px; }
 
-.sp-switch { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; margin-bottom: 12px; border-radius: 999px; background: var(--sp-soft); }
-.sp-switch button { min-height: 40px; border: none; border-radius: 999px; background: transparent; color: var(--sp-muted); font: 600 14px var(--sp-body); cursor: pointer; }
-.sp-switch button.is-on { background: var(--sp-surface); color: var(--sp-ink); box-shadow: 0 1px 3px rgba(31, 26, 46, 0.12); }
+.sp-switch { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; margin-bottom: 12px; border-radius: 999px; background: var(--sp-soft); border: 1.5px solid var(--sp-edge); }
+.sp-switch button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 40px; border: 2px solid transparent; border-radius: 999px; background: transparent; color: var(--sp-muted); font: 600 14px var(--sp-body); cursor: pointer; }
+.sp-switch button .sp-icon { width: 16px; height: 16px; }
+.sp-switch button.is-on { background: var(--sp-peri); border-color: var(--sp-accent); color: var(--sp-on-peri); }
+.sp-switch button:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 2px; }
 
 .sp-exact { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
 .sp-exact-row { display: grid; grid-template-columns: 1fr 120px; align-items: center; gap: 12px; }
@@ -124,13 +136,14 @@
 .sp-banner { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 18px; background: var(--sp-soft); font-size: 14px; color: var(--sp-muted); }
 .sp-banner strong { color: var(--sp-ink); }
 
-.sp-balance { padding: 20px; border-radius: 24px; background: var(--sp-accent-soft); display: flex; flex-direction: column; gap: 2px; }
-.sp-balance .sp-label { margin: 0; }
+.sp-balance { padding: 20px; border-radius: 24px; background: var(--sp-peri); color: var(--sp-on-peri); display: flex; flex-direction: column; gap: 2px; }
+.sp-balance .sp-label, .sp-balance .sp-muted, .sp-balance .sp-hint { margin: 0; color: var(--sp-on-peri); }
 .sp-balance-big { margin: 0; font: 600 32px/1.2 var(--sp-display); }
 .sp-balance-action {
   align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
   min-height: 40px; padding: 0 16px; border: none; border-radius: 999px;
   background: var(--sp-surface); color: var(--sp-accent); font: 600 15px var(--sp-body); cursor: pointer;
+  border: 1.5px solid var(--sp-accent);
 }
 .sp-balance-action .sp-icon { width: 18px; height: 18px; }
 
@@ -144,7 +157,7 @@
   width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0;
   border: none; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
 }
-.sp-row-payment { opacity: 0.8; padding-left: 48px; }
+.sp-row-payment { padding-left: 48px; }
 .sp-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .sp-row-title { font-weight: 600; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sp-row-sub { font-size: 13px; color: var(--sp-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -155,12 +168,13 @@
   flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%;
   font: 600 15px var(--sp-body); color: var(--sp-ink); background: var(--sp-soft);
 }
-.sp-tint-0 { background: var(--cover-sun, #F3E3B5); }
-.sp-tint-1 { background: var(--cover-peach, #F2D6C4); }
-.sp-tint-2 { background: var(--cover-rose, #EED3D6); }
-.sp-tint-3 { background: var(--cover-lilac, #DDD6EC); }
-.sp-tint-4 { background: var(--cover-sky, #D3E2EC); }
-.sp-tint-5 { background: var(--cover-sage, #D5E3D6); }
+.sp-tint-1, .sp-tint-3, .sp-tint-5 { color: var(--sp-on-peri); }
+.sp-tint-0 { background: var(--sp-soft); }
+.sp-tint-1 { background: var(--sp-peri); }
+.sp-tint-2 { background: var(--sp-soft); }
+.sp-tint-3 { background: var(--sp-peri); }
+.sp-tint-4 { background: var(--sp-soft); }
+.sp-tint-5 { background: var(--sp-peri); }
 
 .sp-dock {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 5;
@@ -175,10 +189,11 @@
 .sp-pick { display: flex; flex-direction: column; gap: 8px; }
 .sp-pick-row {
   width: 100%; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 14px;
-  border: 1.5px solid var(--sp-line-strong); border-radius: 18px; background: var(--sp-surface);
+  border: 1.5px solid var(--sp-edge); border-radius: 18px; background: var(--sp-surface);
   color: var(--sp-ink); font: 600 16px var(--sp-body); cursor: pointer; text-align: left;
 }
-.sp-pick-row:active { border-color: var(--sp-accent); }
+.sp-pick-row:active { border-color: var(--sp-accent); background: var(--sp-soft); }
+.sp-pick-row:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 2px; }
 
 /* People + settle */
 .sp-people { display: flex; flex-direction: column; gap: 10px; }
@@ -202,17 +217,18 @@
   font-family: var(--font-body, system-ui, sans-serif); overflow: hidden;
   /* the sheet lives outside .sp-screen in the top layer, so it repeats the token fallbacks it needs */
   --sp-surface: var(--surface, #FFFBF5); --sp-soft: var(--surface-soft, #F1EAF8); --sp-ink: var(--ink, #1F1A2E);
-  --sp-muted: var(--ink-muted, #575166); --sp-faint: var(--ink-faint, #6A6476); --sp-line: var(--line, #EDE1D1);
-  --sp-line-strong: var(--line-strong, #D6C8B6); --sp-accent: var(--accent, #342E86); --sp-accent-ink: var(--accent-ink, #FFFFFF);
-  --sp-accent-soft: var(--accent-soft, #E6DDF3); --sp-danger: var(--danger, #A2433B);
-  --sp-display: var(--font-display, Georgia, serif); --sp-body: var(--font-body, system-ui, sans-serif); --sp-tap: var(--tap, 52px);
+  --sp-muted: var(--ink-muted, #575166); --sp-faint: var(--ink-muted, #575166); --sp-line: var(--line, #EDE1D1);
+  --sp-edge: var(--edge, #575166); --sp-peri: var(--periwinkle, #B7B1E6); --sp-on-peri: var(--on-periwinkle, #1F1A2E);
+  --sp-accent: var(--accent, #342E86); --sp-accent-ink: var(--accent-ink, #FFFFFF);
+  --sp-accent-soft: var(--surface-soft, #F1EAF8); --sp-danger: var(--danger, #A2433B);
+  --sp-display: var(--font-display, Georgia, serif); --sp-body: var(--font-body, 'DM Sans', system-ui, sans-serif); --sp-tap: var(--tap, 52px);
 }
 .sp-sheet::backdrop { background: rgba(23, 20, 31, 0.36); }
 .sp-sheet[open] { animation: sp-up 0.26s cubic-bezier(0.2, 0.8, 0.2, 1); }
 @keyframes sp-up { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .sp-sheet[open] { animation: none; } }
 .sp-sheet-inner { display: flex; flex-direction: column; max-height: 92dvh; }
-.sp-sheet-handle { align-self: center; width: 40px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--sp-line-strong); flex: none; }
+.sp-sheet-handle { align-self: center; width: 40px; height: 4px; margin-top: 12px; border-radius: 2px; background: var(--sp-edge); flex: none; }
 .sp-sheet-title { margin: 0; padding: 12px 20px 8px; font: 600 18px var(--sp-body); flex: none; }
 .sp-sheet-title:focus { outline: none; }
 .sp-sheet-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 18px; padding: 8px 20px 16px; }
@@ -220,6 +236,6 @@
 
 .sp-qr { align-self: center; padding: 12px; border-radius: 18px; background: #FFFFFF; line-height: 0; }
 
-.sp-spinner { width: 28px; height: 28px; margin: 0 auto; border-radius: 50%; border: 3px solid var(--sp-accent-soft); border-top-color: var(--sp-accent); animation: sp-spin 0.9s linear infinite; }
+.sp-spinner { width: 28px; height: 28px; margin: 0 auto; border-radius: 50%; border: 3px solid var(--sp-peri); border-top-color: var(--sp-accent); animation: sp-spin 0.9s linear infinite; }
 @keyframes sp-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .sp-spinner { animation-duration: 3s; } }

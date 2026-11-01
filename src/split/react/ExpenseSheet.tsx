@@ -5,7 +5,7 @@ import { todayLocal, type Entry, type Expense, type RoomState, type Split } from
 import { deleteEntry, saveEntry, type OpenRoom } from '../data/room'
 import { SplitError } from '../data/backend'
 import { useMoney, useSplit } from './context'
-import { Button, Chip, Sheet } from './ui'
+import { Button, Chip, Icon, Sheet } from './ui'
 
 type Props = {
   open: boolean
@@ -170,8 +170,11 @@ export function ExpenseSheet({ open, onClose, room, state, myId, editing, onSave
           value={amountText}
           onChange={(e) => setAmountText(e.target.value)}
           aria-invalid={!!amountText && !amount}
+          aria-describedby={amountText && !amount ? 'sp-amount-hint' : undefined}
         />
         <span className="sp-amount-cur">{state.info!.data.currency}</span>
+        {/* words, not just a changed line colour */}
+        {amountText && !amount ? <span id="sp-amount-hint" className="sp-amount-hint">{c.errors.amount}</span> : null}
       </label>
 
       <label className="sp-field">
@@ -190,8 +193,8 @@ export function ExpenseSheet({ open, onClose, room, state, myId, editing, onSave
 
       <div className="sp-field">
         <div className="sp-switch" role="radiogroup" aria-label={c.splitHow}>
-          <button type="button" role="radio" aria-checked={mode === 'equal'} className={mode === 'equal' ? 'is-on' : ''} onClick={() => setMode('equal')}>{c.equally}</button>
-          <button type="button" role="radio" aria-checked={mode === 'exact'} className={mode === 'exact' ? 'is-on' : ''} onClick={() => setMode('exact')}>{c.custom}</button>
+          <button type="button" role="radio" aria-checked={mode === 'equal'} className={mode === 'equal' ? 'is-on' : ''} onClick={() => setMode('equal')}>{mode === 'equal' ? <Icon name="check" /> : null}{c.equally}</button>
+          <button type="button" role="radio" aria-checked={mode === 'exact'} className={mode === 'exact' ? 'is-on' : ''} onClick={() => setMode('exact')}>{mode === 'exact' ? <Icon name="check" /> : null}{c.custom}</button>
         </div>
         {mode === 'equal' ? (
           <>

@@ -24,6 +24,8 @@ export function Button({ children, onClick, variant = 'primary', disabled, type 
 export function Chip({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: ReactNode }) {
   return (
     <button type="button" className={`sp-chip${selected ? ' is-on' : ''}`} aria-pressed={selected} onClick={onClick}>
+      {/* the ✓ makes "selected" readable without colour (Ellenial accessibility rule) */}
+      {selected ? <Icon name="check" /> : null}
       {children}
     </button>
   )

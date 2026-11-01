@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { computeBalances, shareOut } from '../core/balances'
 import { settleUp } from '../core/settle'
 import type { Entry, Expense, Payment } from '../core/model'
@@ -24,11 +24,13 @@ export type RoomViewProps = {
   onGone: () => void
   /** Called with the room's name once known, e.g. to remember it on the phone. */
   onName?: (name: string) => void
+  /** Extra content for the More sheet, from the host (the standalone app puts its Auto/Light/Dark switch here). */
+  moreExtra?: ReactNode
 }
 
 type Sheet = null | 'add' | 'edit' | 'settle' | 'people' | 'invite' | 'more' | 'payback'
 
-export function RoomView({ room, link, myId, onMyId, onExit, onGone, onName }: RoomViewProps) {
+export function RoomView({ room, link, myId, onMyId, onExit, onGone, onName, moreExtra }: RoomViewProps) {
   const { backend, copy, locale } = useSplit()
   const c = copy.room
   const { loaded, status, live, reload } = useRoom(backend, room)
@@ -193,7 +195,7 @@ export function RoomView({ room, link, myId, onMyId, onExit, onGone, onName }: R
         foot={<><Button variant="danger" onClick={() => { const id = payback?.id; setSheet(null); if (id) void deleteEntry(backend, room, id).then(reload, reload) }}>{c.paybackRemove}</Button><Button variant="quiet" onClick={() => setSheet(null)}>{copy.common.cancel}</Button></>}>
         <p className="sp-muted">{c.paybackSub}</p>
       </BottomSheet>
-      <MoreSheet open={sheet === 'more'} onClose={() => setSheet(null)} room={room} onDeleted={onGone} onForget={onGone} />
+      <MoreSheet open={sheet === 'more'} onClose={() => setSheet(null)} room={room} onDeleted={onGone} onForget={onGone} extra={moreExtra} />
     </div>
   )
 }

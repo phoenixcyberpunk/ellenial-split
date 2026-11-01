@@ -7,6 +7,7 @@ import { supabase } from './supabase'
 import { shareOrigin } from './config'
 import { Home } from './Home'
 import { CreateRoom } from './CreateRoom'
+import { ThemeRow } from './ThemeSwitch'
 
 /*
   Three screens: Home (/), Create (/new), Room (/r).
@@ -85,6 +86,7 @@ export function App() {
           onName={(name) => rememberRoom({ roomId: room.roomId, secret: route.secret, name })}
           onExit={() => go('/')}
           onGone={() => { forgetRoom(room.roomId); go('/', true) }}
+          moreExtra={<ThemeRow />}
         />
       ) : (
         <div className="sp-screen sp-center-screen" aria-busy="true"><span className="sp-spinner" aria-label="Loading" /></div>

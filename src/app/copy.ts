@@ -30,6 +30,13 @@ export const appCopy = {
       rate: 'That’s a lot of new rooms from here. Try again in a little while.',
     },
   },
+  theme: {
+    label: 'Theme',
+    auto: 'Auto',
+    light: 'Light',
+    dark: 'Dark',
+    autoHint: 'Follows your phone',
+  },
   footer: {
     by: 'An Ellenial app',
     source: 'Open source',

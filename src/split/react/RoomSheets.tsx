@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { deleteRoom, type OpenRoom } from '../data/room'
 import { useSplit } from './context'
 import { Button, QrCode, Sheet } from './ui'
@@ -34,8 +34,10 @@ export function InviteSheet({ open, onClose, link, roomName }: { open: boolean; 
   )
 }
 
-export function MoreSheet({ open, onClose, room, onDeleted, onForget }: {
+export function MoreSheet({ open, onClose, room, onDeleted, onForget, extra }: {
   open: boolean
+  /** Host's own settings for this sheet, e.g. the Ellenial theme switch. */
+  extra?: ReactNode
   onClose: () => void
   room: OpenRoom
   onDeleted: () => void
@@ -83,6 +85,7 @@ export function MoreSheet({ open, onClose, room, onDeleted, onForget }: {
         <summary>{c.privacy}</summary>
         {c.privacyText.map((p) => <p key={p}>{p}</p>)}
       </details>
+      {extra}
       <Button variant="secondary" onClick={() => setConfirm('forget')}>{c.leave}</Button>
       <Button variant="danger" onClick={() => setConfirm('delete')}>{c.deleteRoom}</Button>
     </Sheet>

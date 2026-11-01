@@ -10,10 +10,10 @@ Gillefeeling will import later ("split costs for this hangout").
 - **Database:** Gillefeeling's Supabase project `gillefeeling` (ref `knvrvmqdxvcatsrvkrgx`, Stockholm, Free plan,
   max 2 active projects). Everything for this app is in its own `split` schema + `public.split_*` functions,
   with no link to Gillefeeling's tables or auth. Can move to its own project later if it grows.
-- **Hosting:** Vercel team "The Ellenial Project". Planned address: `split.ellenial.app`.
-- **Workspace limits:** Claude's workspace can't reach npm or supabase.co → builds happen on Vercel.
-  Locally: `tsx src/split/core/core.test.ts` (pure maths), typecheck against stub `.d.ts` files, and a
-  preview bundle via `/opt/npm-tools/node_modules/esbuild` with an in-memory backend shim (see "Testing").
+- **Hosting:** Vercel team "The Ellenial Project", project `ellenial-split`. `main` → `split.ellenial.app` (production);
+  `staging` branch → `split-staging.ellenial.app` (look here first, then merge to main).
+- **Workspace limits:** npm works (1 Nov), supabase.co doesn't → real backend only on Vercel deployments.
+  Locally: `npm run build`, `npm test` (pure maths), and a preview build with an in-memory backend shim (see "Testing").
 
 ## Decisions (2026-10-29)
 - **Live updates are a must.** Server pings `split:<roomId>` (Realtime broadcast, public channel, empty
@@ -31,6 +31,24 @@ Gillefeeling will import later ("split costs for this hangout").
 - **Joining:** one tap via link or QR, then "Which one are you?" (pick a name or add yourself).
 - **Settle-up = truly fewest transfers** for up to 15 people with money to move (exact subset search),
   greedy above that. Beat the usual shortcut in ~1.3 % of random rooms; tested against brute force.
+
+## Ellenial look (final, decided 1 Nov 2026 — don't reopen)
+Source of truth: Ellenial – Brand identity doc (https://claude.ai/artifact/9Fng54MMZMyyKjkqKaVR7r). Applied everywhere, no exceptions.
+- **Palette** (tokens in `src/app/app.css`, same names as Gillefeeling; `split.css` fallbacks match):
+  light Peach `#FEF2E2` bg · Card `#FFFBF5` · Lavender `#F1EAF8` · Periwinkle `#B7B1E6` · Indigo `#342E86` · Night `#1F1A2E` ·
+  Muted `#575166` · Line `#EDE1D1`. Dark: `#17141F` · `#221E2C` · `#2D2640` · Periwinkle `#463C6E` (text `#F3EEF8` on it) ·
+  accent `#B39AE8` (text `#1A1430` on it) · text `#F3EEF8` · muted `#C2BACF` · line `#332D40`. Red only for delete/errors.
+  Old non-brand tokens (line-strong, ink-faint as its own colour, cover-* tints, accent-soft #E6DDF3) are gone.
+- **Fonts:** Fraunces (headings) + DM Sans (text), self-hosted via @fontsource. Replaced Instrument Sans (31 Oct choice, superseded).
+- **Auto / Light / Dark:** `public/ellenial-theme.js`, copied UNCHANGED from ellenial maps, loaded in `<head>` before CSS
+  (excluded from the SPA rewrite in vercel.json). Sets `data-theme` on `<html>`; saved on this phone only (`ellenial:theme`).
+  Dark tokens live under `:root[data-theme="dark"]` AND an identical `@media (prefers-color-scheme: dark) :root:not([data-theme])`
+  block (for no-JS) — keep them identical. Switch shown in the Home footer and in a room's More sheet (`RoomView moreExtra`,
+  so the module stays host-agnostic; Gillefeeling passes its own). Test with `?theme=light|dark`.
+- **Accessibility:** text ≥ 4.5:1, controls ≥ 3:1. Line is decorative only; inputs, chips, pick rows, the Equal/Custom switch get
+  a `--edge` (Muted) outline. Selected chips/switch = Periwinkle fill + Indigo outline + ✓ (never colour alone). Periwinkle is a
+  fill only (Muted text fails on it at 3.8:1 → balance card uses Night text). Invalid amount shows words, not just a line change.
+  Payment rows no longer use opacity (it dimmed text below 4.5:1). Checked 1 Nov: every rendered text in both themes ≥ 4.5:1.
 
 ## Brand Principles applied
 1. Worst day: no "you owe", no red money, no nagging. Money is "to send" / "to get back". Red only for delete.
@@ -87,6 +105,7 @@ supabase/migrations/  schema, mirrored from what's applied
 - Gillefeeling's code rule "crypto only in shared/crypto": the module brings its own `crypto/roomKey.ts`; note it there.
 
 ## Testing
+- npm works from the workspace now (1 Nov): `npm run build` (tsc + vite) runs locally.
 - `tsx src/split/core/core.test.ts` → 9,000+ checks (amount parsing, rounding, balances, settle vs brute force).
 - Preview: bundle `src/app/main.tsx` with esbuild, aliasing `@supabase/supabase-js` to an in-memory shim that
   mirrors the SQL rules (shared between tabs via localStorage + BroadcastChannel), serve, click through with
@@ -99,8 +118,14 @@ supabase/migrations/  schema, mirrored from what's applied
 - Add LICENSE file (AGPL-3.0) via GitHub's template (workspace can't fetch the text verbatim).
 - Live test on two real phones once deployed (Realtime "public channels" must be allowed in the project).
 - Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets, multiple currencies per room.
+- Currency default on Create follows the browser (showed USD in the preview); consider SEK/EUR first for Sweden.
 
 ## Status
 - 2026-10-29: Stack check of Gillefeeling. Decisions above. Schema applied + tested. Module + standalone app
   built; core maths tested; full click-through in preview. Next: push, Vercel project + split.ellenial.app,
   phone test.
+- 2026-10-29/31: pushed; live at split.ellenial.app (production); text font briefly Instrument Sans.
+- 2026-11-01: Final Ellenial brand applied (palette + Periwinkle, Fraunces + DM Sans, Auto/Light/Dark switch from
+  ellenial maps, accessibility rules). Build + 9,233 maths checks pass; preview click-through in light + dark with an
+  automated contrast scan of every visible text (0 failures), theme switch saves/restores. Shipped to staging
+  (split-staging.ellenial.app) for Ellen to look at. Next: Ellen's review → merge staging to main; real-phone test.

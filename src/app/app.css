@@ -1,54 +1,72 @@
 /*
-  Standalone app theme. Same token NAMES as Gillefeeling, so the shared module looks native
-  in both. Palette borrowed from Gillefeeling (Ellen's flower logo colours) as a placeholder
-  until this app gets its own look. All text pairs checked for WCAG AA (4.5:1+).
+  Standalone app theme: the final Ellenial look (Brand identity doc, decided 1 Nov 2026, not to be reopened).
+  One palette for every Ellenial app. Token NAMES match Gillefeeling's, so the shared module looks native
+  in both. Fonts: Fraunces for headings, DM Sans for text, both served from this site.
+
+  Accessibility rules (brand doc, 1 Nov 2026), checked for every pair used here:
+  - text at least 4.5:1, controls/outlines/icons at least 3:1 against what's behind them
+  - Line is decorative only; anything tappable gets a --edge outline (Muted, 7.3:1 light / 8.7:1 dark)
+  - Periwinkle is a fill only, with Night/Indigo text on it (light) or #F3EEF8 (dark); never text
+  - never colour alone: selected things also get a ✓ and an outline, errors get words
+
+  Light/Dark: ellenial-theme.js (shared, from ellenial maps) sets data-theme on <html>.
+  Keep the two dark blocks identical: the media query is for when JavaScript is off.
 */
 :root {
-  --bg: #FEF2E2;
-  --surface: #FFFBF5;
-  --surface-soft: #F1EAF8;
-  --ink: #1F1A2E;
-  --ink-muted: #575166;
-  --ink-faint: #6A6476;
-  --line: #EDE1D1;
-  --line-strong: #D6C8B6;
-  --accent: #342E86;
+  --bg: #FEF2E2;          /* Peach */
+  --surface: #FFFBF5;     /* Card */
+  --surface-soft: #F1EAF8;/* Lavender */
+  --periwinkle: #B7B1E6;  /* Periwinkle: selected chips, active tiles, highlights */
+  --on-periwinkle: #1F1A2E;
+  --ink: #1F1A2E;         /* Night */
+  --ink-muted: #575166;   /* Muted */
+  --ink-faint: #575166;   /* no separate "faint" in the brand: same as Muted */
+  --line: #EDE1D1;        /* Line, decorative only */
+  --edge: #575166;        /* outline for anything tappable (3:1+) */
+  --accent: #342E86;      /* Indigo */
   --accent-ink: #FFFFFF;
-  --accent-soft: #E6DDF3;
-  --danger: #A2433B;
-  --cover-sun: #F3E3B5;
-  --cover-peach: #F2D6C4;
-  --cover-rose: #EED3D6;
-  --cover-lilac: #DDD6EC;
-  --cover-sky: #D3E2EC;
-  --cover-sage: #D5E3D6;
+  --accent-soft: #F1EAF8;
+  --danger: #A2433B;      /* semantic red: delete and errors only */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --tap: 52px;
   --content-max: 440px;
   color-scheme: light;
 }
 
+:root[data-theme="dark"] {
+  --bg: #17141F;
+  --surface: #221E2C;
+  --surface-soft: #2D2640;
+  --periwinkle: #463C6E;
+  --on-periwinkle: #F3EEF8;
+  --ink: #F3EEF8;
+  --ink-muted: #C2BACF;
+  --ink-faint: #C2BACF;
+  --line: #332D40;
+  --edge: #C2BACF;
+  --accent: #B39AE8;
+  --accent-ink: #1A1430;
+  --accent-soft: #2D2640;
+  --danger: #E59A91;
+  color-scheme: dark;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #17141F;
     --surface: #221E2C;
     --surface-soft: #2D2640;
+    --periwinkle: #463C6E;
+    --on-periwinkle: #F3EEF8;
     --ink: #F3EEF8;
     --ink-muted: #C2BACF;
-    --ink-faint: #A9A1B7;
+    --ink-faint: #C2BACF;
     --line: #332D40;
-    --line-strong: #4A4259;
+    --edge: #C2BACF;
     --accent: #B39AE8;
     --accent-ink: #1A1430;
-    --accent-soft: #3A3052;
+    --accent-soft: #2D2640;
     --danger: #E59A91;
-    --cover-sun: #4A4128;
-    --cover-peach: #4A362B;
-    --cover-rose: #47343A;
-    --cover-lilac: #3C3749;
-    --cover-sky: #2E3E48;
-    --cover-sage: #31423A;
     color-scheme: dark;
   }
 }
@@ -60,10 +78,18 @@ a { color: var(--accent); }
 .app-home { padding-top: 40px; }
 .app-hero { display: flex; flex-direction: column; gap: 10px; }
 .app-logo { margin: 0 0 8px; font: 600 22px var(--font-display); color: var(--accent); }
-.app-logo span { color: var(--ink-faint); }
+.app-logo span { color: var(--ink-muted); }
 .app-promises { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; color: var(--ink-muted); font-size: 15px; }
 .app-promises li { display: flex; align-items: center; gap: 8px; }
 .app-promises .sp-icon { width: 18px; height: 18px; color: var(--accent); flex: none; }
 .app-room-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
 .app-paste { margin-top: 8px; }
-.app-footer { margin-top: auto; padding-top: 24px; text-align: center; font-size: 13px; color: var(--ink-faint); }
+.app-footer { margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; font-size: 13px; color: var(--ink-muted); }
+
+/* Auto / Light / Dark: same look as ellenial maps (words, the chosen one underlined, so not colour alone) */
+.theme-switch { display: inline-flex; gap: 2px; align-items: center; color: var(--ink-muted); font-size: 13px; }
+.theme-switch__btn { border: none; background: none; min-height: 44px; padding: 6px 6px; font: 600 13px var(--font-body); color: var(--ink-muted); cursor: pointer; }
+.theme-switch__btn[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.theme-switch__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.app-theme-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.app-theme-row .sp-label { margin: 0; }

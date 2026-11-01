@@ -1,5 +1,5 @@
 {
-  "rewrites": [{ "source": "/((?!assets/|favicon.svg).*)", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/((?!assets/|favicon.svg|ellenial-theme.js).*)", "destination": "/index.html" }],
   "headers": [
     {
       "source": "/(.*)",

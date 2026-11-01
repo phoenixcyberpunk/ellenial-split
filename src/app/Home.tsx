@@ -3,6 +3,7 @@ import { Button, Icon, readRoomRef, rememberedRooms, type RoomRef } from '../spl
 import { appCopy } from './copy'
 import { config } from './config'
 import { Logo } from './Logo'
+import { ThemeSwitch } from './ThemeSwitch'
 
 export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () => void; onOpen: (ref: RoomRef) => void }) {
   const c = appCopy.home
@@ -54,7 +55,8 @@ export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () =
       </details>
 
       <footer className="app-footer">
-        <a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a>
+        <span><a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a></span>
+        <ThemeSwitch />
       </footer>
 
       <div className="sp-dock">
