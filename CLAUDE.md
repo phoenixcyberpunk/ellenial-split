@@ -128,4 +128,5 @@ supabase/migrations/  schema, mirrored from what's applied
 - 2026-11-01: Final Ellenial brand applied (palette + Periwinkle, Fraunces + DM Sans, Auto/Light/Dark switch from
   ellenial maps, accessibility rules). Build + 9,233 maths checks pass; preview click-through in light + dark with an
   automated contrast scan of every visible text (0 failures), theme switch saves/restores. Shipped to staging
-  (split-staging.ellenial.app) for Ellen to look at. Next: Ellen's review → merge staging to main; real-phone test.
+  (split-staging.ellenial.app) for Ellen to look at. Ellen approved the same evening → merged to main, live on
+  split.ellenial.app. Next: real-phone test.
