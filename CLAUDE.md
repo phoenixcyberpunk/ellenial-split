@@ -115,7 +115,6 @@ supabase/migrations/  schema, mirrored from what's applied
 
 ## Open
 - Real app name; Own hand-made mark/icon (placeholder now).
-- Add LICENSE file (AGPL-3.0) via GitHub's template (workspace can't fetch the text verbatim).
 - Live test on two real phones once deployed (Realtime "public channels" must be allowed in the project).
 - Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets, multiple currencies per room.
 - Currency default on Create follows the browser (showed USD in the preview); consider SEK/EUR first for Sweden.
@@ -130,3 +129,4 @@ supabase/migrations/  schema, mirrored from what's applied
   automated contrast scan of every visible text (0 failures), theme switch saves/restores. Shipped to staging
   (split-staging.ellenial.app) for Ellen to look at. Ellen approved the same evening → merged to main, live on
   split.ellenial.app. Next: real-phone test.
+- 2026-11-07: LICENSE (AGPL-3.0, same text as the other Ellenial repos) and TRADEMARK.md added; the Ellenial name and logo are not covered by the code licence. Listed on ellenial.app as early alpha.
