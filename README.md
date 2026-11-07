@@ -28,3 +28,5 @@ npm test        # the money and settle-up maths
 
 ## Licence
 AGPL-3.0. An Ellenial app, made by one person with Claude helping on the code.
+
+The Ellenial name and logo aren't covered by the code licence, see [TRADEMARK.md](TRADEMARK.md).
