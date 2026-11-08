@@ -93,3 +93,6 @@ a { color: var(--accent); }
 .theme-switch__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 .app-theme-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .app-theme-row .sp-label { margin: 0; }
+
+/* "Ellenial" above the app's name (decided 8 Nov 2026): credit where credit is due, without making the name longer. */
+.app-logo span.ellenial-eyebrow, .ellenial-eyebrow { display: block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; line-height: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--ink-muted); margin: 0 0 2px; }
