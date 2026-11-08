@@ -38,6 +38,7 @@ export const appCopy = {
     autoHint: 'Follows your phone',
   },
   footer: {
+    made: 'Drawn and designed by me, coded with the help of AI',
     by: 'An Ellenial app',
     source: 'Open source',
   },

@@ -55,6 +55,7 @@ export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () =
       </details>
 
       <footer className="app-footer">
+        <span>{appCopy.footer.made}</span>
         <span><a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a></span>
         <ThemeSwitch />
       </footer>
