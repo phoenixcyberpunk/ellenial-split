@@ -114,7 +114,7 @@ supabase/migrations/  schema, mirrored from what's applied
   dark mode. No errors.
 
 ## Open
-- Real app name; Own hand-made mark/icon (placeholder now).
+- (Decided 8 Nov) The name is **Split**, in Swedish too. (Done 8 Nov) App icon: Ellen's drawing (banknote with arrows to three people) on a rose `#F0D5DC` tile; a light-arrow version exists for dark pages (ellenial.app/drawings/split-dark.png). The in-app `Logo` wordmark is still plain type, with a small "Ellenial" above it.
 - Live test on two real phones once deployed (Realtime "public channels" must be allowed in the project).
 - Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets, multiple currencies per room.
 - Currency default on Create follows the browser (showed USD in the preview); consider SEK/EUR first for Sweden.
