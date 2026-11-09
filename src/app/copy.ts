@@ -39,8 +39,10 @@ export const appCopy = {
   },
   footer: {
     drawn: 'Drawn',
-    made: ' and designed by me, coded with the help of AI',
-    by: 'An Ellenial app',
-    source: 'Open source',
+    made: ' and designed by me, coded with the help of AI.',
+    promise: 'Free · no ads · no trackers',
+    by: 'An Ellenial tool',
+    source: 'Source',
+    thanks: 'Thanks',
   },
 }
