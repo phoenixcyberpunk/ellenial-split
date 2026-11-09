@@ -104,3 +104,10 @@ a { color: var(--accent); }
 .ell-notes { display: flex; flex-direction: column; gap: 4px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; line-height: 19px; }
 .ell-shared { display: flex; flex-direction: column; gap: 6px; }
 .ell-controls { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* App icon beside the eyebrow and name, like the other Ellenial apps (9 Nov 2026) */
+.app-logo { display: flex; align-items: center; gap: 10px; }
+.app-logo__icon { width: 44px; height: 44px; border-radius: 10px; flex: none; display: block; }
+.app-logo .app-logo__name { display: flex; flex-direction: column; color: var(--accent); }
+.app-logo .app-logo__word { color: var(--accent); }
+.app-logo .app-logo__word > span { color: var(--ink-muted); }
