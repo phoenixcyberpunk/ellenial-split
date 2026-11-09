@@ -91,14 +91,26 @@ src/split/            the reusable module (no app imports; host passes its Supab
   data/               backend.ts (minimal client interface), room.ts (RPC calls), link.ts, device.ts (localStorage)
   react/              context (SplitProvider), useRoom (live sync), RoomView, ExpenseSheet, SettleSheet,
                       People (WhoAreYou + PeopleSheet), RoomSheets (Invite, More), ui (Sheet, Button, Chip, QrCode, Icon)
-  copy/en.ts          ALL module words (host can pass its own with the same shape)
+  copy/en.ts, sv.ts   ALL module words, English + Swedish (host can pass its own with the same shape)
   split.css           .sp- prefixed; reads Gillefeeling's token names with fallbacks
-src/app/              standalone shell: Home, CreateRoom, App (routes / , /new, /r), config, copy, app.css (tokens)
+src/app/              standalone shell: Home, CreateRoom, App (routes / , /new, /r), config, copy (EN + SV), lang + LangSwitch, app.css (tokens)
 supabase/migrations/  schema, mirrored from what's applied
 ```
 - Links: `https://split.ellenial.app/r#<roomId 22 chars>.<secret 43 chars>`. On arrival the secret is saved
   on the phone and the address bar is trimmed to `/r#<roomId>`.
 - This phone remembers rooms (`es:rooms`: id, secret, name, which person you are). Never sent anywhere.
+
+## Language, back gesture, install (9 Nov 2026)
+- **Swedish + English**, same as ellenial maps: Swedish if any phone language is Swedish, otherwise English; an EN | SV switch in the
+  Home footer (beside the theme switch) and in a room's More sheet (`moreExtra`). Saved on this phone only (`ellenial-split:lang`).
+  App words in `src/app/copy.ts` (`appCopy` is a live binding switched by App), module words in `copy/en.ts` + `copy/sv.ts`
+  (TypeScript checks the shapes match). Footer lines are word for word the shared Ellenial ones from maps. Swedish money words stay
+  neutral: "att skicka" / "att få tillbaka", "Gör upp", "kvitt". Dates and amounts follow `sv-SE` in Swedish.
+- **Back gesture closes sheets** (`ui.tsx`): while any sheet is open there's one extra history entry at the same address; back closes
+  the top sheet (a confirm goes back to More), closing a sheet in the app removes the entry, so back from the room still goes Home.
+- **Install (PWA):** `public/manifest.webmanifest` ("Ellenial Split", short name "Split"), Ellen's drawing as 192/512 icons plus a
+  maskable 512 with more padding (made from ellenial `art/drawings/split.png` on the rose tile). No service worker on purpose:
+  nothing cached, always the latest version. New public files are excluded from the SPA rewrite in vercel.json.
 
 ## Gillefeeling integration (later)
 - `npm i github:phoenixcyberpunk/ellenial-split#<tag>` (package exports `src/split/index.ts`, Vite compiles it).
@@ -120,7 +132,8 @@ supabase/migrations/  schema, mirrored from what's applied
 ## Open
 - (Decided 8 Nov) The name is **Split**, in Swedish too. (Done 8 Nov) App icon: Ellen's drawing (banknote with arrows to three people) on a rose `#F0D5DC` tile; a light-arrow version exists for dark pages (ellenial.app/drawings/split-dark.png). The in-app `Logo` wordmark is still plain type, with a small "Ellenial" above it.
 - Live test on two real phones once deployed (Realtime "public channels" must be allowed in the project).
-- Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets.
+- Later: shares UI (weights) — needs a mock-up first.
+- PWA on iPhone: a home-screen app has its own storage, separate from Safari, so rooms opened in Safari don't show up in the installed app (and room links open in Safari). Fine for now; revisit if people install it a lot.
 
 ## Status
 - 2026-10-29: Stack check of Gillefeeling. Decisions above. Schema applied + tested. Module + standalone app
@@ -134,3 +147,5 @@ supabase/migrations/  schema, mirrored from what's applied
   split.ellenial.app. Next: real-phone test.
 - 2026-11-07: LICENSE (AGPL-3.0, same text as the other Ellenial repos) and TRADEMARK.md added; the Ellenial name and logo are not covered by the code licence. Listed on ellenial.app as early alpha.
 - 2026-11-09: SEK only for now (Ellen's call): the currency picker is gone from Create and every new room is SEK. The module and model still support other currencies for later.
+- 2026-11-09: Swedish copy + EN | SV switch, back gesture closes sheets, installable as a PWA. Build + 9,233 maths checks pass; preview
+  click-through in Swedish and dark mode (create, add expense, back closes sheet, More → delete confirm → back → back, switch to EN, reload keeps it), no errors. On staging.

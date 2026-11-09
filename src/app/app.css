@@ -91,6 +91,11 @@ a { color: var(--accent); }
 .theme-switch__btn { border: none; background: none; min-height: 44px; padding: 6px 6px; font: 600 13px var(--font-body); color: var(--ink-muted); cursor: pointer; }
 .theme-switch__btn[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
 .theme-switch__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+/* EN | SV switch (same look as the theme switch; ellenial maps has the same control). */
+.app-lang { display: inline-flex; gap: 2px; align-items: center; color: var(--ink-muted); font-size: 13px; }
+.app-lang__btn { border: none; background: none; min-height: 44px; min-width: 32px; padding: 6px 6px; font: 600 13px var(--font-body); color: var(--ink-muted); cursor: pointer; }
+.app-lang__btn[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.app-lang__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 .app-theme-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .app-theme-row .sp-label { margin: 0; }
 

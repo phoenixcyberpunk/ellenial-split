@@ -4,6 +4,7 @@ import { appCopy } from './copy'
 import { config } from './config'
 import { Logo } from './Logo'
 import { ThemeSwitch } from './ThemeSwitch'
+import { LangSwitch } from './LangSwitch'
 
 export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () => void; onOpen: (ref: RoomRef) => void }) {
   const c = appCopy.home
@@ -62,7 +63,7 @@ export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () =
           <p>{appCopy.footer.counter}</p>
           <p><a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a> · <a href="https://ellenial.app/thanks">{appCopy.footer.thanks}</a></p>
         </div>
-        <div className="ell-controls"><ThemeSwitch /></div>
+        <div className="ell-controls"><LangSwitch /><ThemeSwitch /></div>
       </footer>
 
       <div className="sp-dock">

@@ -21,6 +21,7 @@ export const splitCopy = {
     you: 'you',
     youCap: 'You',
     tryAgain: 'Try again',
+    loading: 'Loading',
   },
   room: {
     yourBalance: 'Your balance',

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  RoomView, SplitProvider, forgetRoom, longId, openRoom, readRoomRef, rememberRoom, rememberedRoom, roomLink, shortId,
+  RoomView, SplitProvider, splitCopy, splitCopySv, forgetRoom, longId, openRoom, readRoomRef, rememberRoom, rememberedRoom, roomLink, shortId,
   type OpenRoom,
 } from '../split'
 import { supabase } from './supabase'
@@ -8,6 +8,9 @@ import { shareOrigin } from './config'
 import { Home } from './Home'
 import { CreateRoom } from './CreateRoom'
 import { ThemeRow } from './ThemeSwitch'
+import { LangRow } from './LangSwitch'
+import { appCopy, setAppCopy } from './copy'
+import { LangCtx, initialLang, saveLang, type Lang } from './lang'
 
 /*
   Three screens: Home (/), Create (/new), Room (/r).
@@ -39,6 +42,10 @@ export function App() {
   const [route, setRoute] = useState<Route>(readRoute)
   const [room, setRoom] = useState<OpenRoom | null>(null)
   const [myId, setMyId] = useState<string | null>(null)
+  const [lang, setLangState] = useState<Lang>(() => { const l = initialLang(); setAppCopy(l); return l })
+  const setLang = useCallback((l: Lang) => { setAppCopy(l); saveLang(l); setLangState(l) }, [])
+  useEffect(() => { document.documentElement.lang = lang }, [lang])
+  const langValue = useMemo(() => ({ lang, setLang }), [lang, setLang])
 
   useEffect(() => {
     const onPop = () => setRoute(readRoute())
@@ -72,7 +79,8 @@ export function App() {
   )
 
   return (
-    <SplitProvider backend={supabase}>
+    <LangCtx.Provider value={langValue}>
+    <SplitProvider backend={supabase} copy={lang === 'sv' ? splitCopySv : splitCopy} locale={lang === 'sv' ? 'sv-SE' : undefined}>
       {route.name === 'home' ? (
         <Home badLink={!!route.badLink} onNew={() => go('/new')} onOpen={(ref) => go(`/r#${shortId(ref.roomId)}.${ref.secret}`)} />
       ) : route.name === 'new' ? (
@@ -86,11 +94,12 @@ export function App() {
           onName={(name) => rememberRoom({ roomId: room.roomId, secret: route.secret, name })}
           onExit={() => go('/')}
           onGone={() => { forgetRoom(room.roomId); go('/', true) }}
-          moreExtra={<ThemeRow />}
+          moreExtra={<><LangRow /><ThemeRow /></>}
         />
       ) : (
-        <div className="sp-screen sp-center-screen" aria-busy="true"><span className="sp-spinner" aria-label="Loading" /></div>
+        <div className="sp-screen sp-center-screen" aria-busy="true"><span className="sp-spinner" aria-label={appCopy.common.loading} /></div>
       )}
     </SplitProvider>
+    </LangCtx.Provider>
   )
 }

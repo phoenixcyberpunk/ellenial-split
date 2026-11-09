@@ -21,7 +21,7 @@ export function ThemeSwitch() {
     const control = api.control({ label: c.label, autoHint: c.autoHint, separator: ' · ', labels: { auto: c.auto, light: c.light, dark: c.dark } })
     el.replaceChildren(control)
     return () => { el.replaceChildren() }
-  }, [])
+  }, [appCopy.theme]) // rebuilt when the language changes
   return <span ref={host} />
 }
 

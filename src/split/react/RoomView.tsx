@@ -73,7 +73,7 @@ export function RoomView({ room, link, myId, onMyId, onExit, onGone, onName, mor
         <Button variant="quiet" onClick={onExit}>{copy.common.back}</Button>
       </div>
     ) : (
-      <div className="sp-screen sp-center-screen" aria-busy="true"><span className="sp-spinner" aria-label="Loading" /></div>
+      <div className="sp-screen sp-center-screen" aria-busy="true"><span className="sp-spinner" aria-label={copy.common.loading} /></div>
     )
   }
 

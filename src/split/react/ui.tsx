@@ -31,6 +31,42 @@ export function Chip({ selected, onClick, children }: { selected: boolean; onCli
   )
 }
 
+/*
+  Phone back gesture / back button closes the top open sheet instead of leaving the room.
+  While any sheet is open there is exactly one extra history entry (same address, so the host's
+  router sees nothing new). Back pops it and closes the top sheet; closing a sheet in the app
+  removes it again. Closing and opening in the same moment (e.g. More → "Delete this room?")
+  keeps the one entry, so the two never race.
+*/
+const sheetStack: { close: () => void }[] = []
+let guarded = false
+let ignorePop = false
+
+function onSheetPop() {
+  if (ignorePop) { ignorePop = false; return }
+  if (!guarded) return
+  guarded = false
+  sheetStack[sheetStack.length - 1]?.close()
+  // Something still open (a sheet that opened another): keep back working for it too.
+  setTimeout(() => { if (sheetStack.length && !guarded) { history.pushState({ spSheet: true }, ''); guarded = true } }, 0)
+}
+if (typeof window !== 'undefined') window.addEventListener('popstate', onSheetPop)
+
+function sheetOpened(entry: { close: () => void }) {
+  sheetStack.push(entry)
+  if (!guarded) { history.pushState({ spSheet: true }, ''); guarded = true }
+}
+
+function sheetClosed(entry: { close: () => void }) {
+  const i = sheetStack.indexOf(entry)
+  if (i >= 0) sheetStack.splice(i, 1)
+  setTimeout(() => {
+    if (sheetStack.length || !guarded) return
+    guarded = false
+    if ((history.state as { spSheet?: boolean } | null)?.spSheet) { ignorePop = true; history.back() }
+  }, 0)
+}
+
 /**
  * Bottom sheet on <dialog>: the browser handles focus, Escape and screen readers.
  * Focus starts on the title so iPhones don't pop the keyboard open just to look.
@@ -43,11 +79,19 @@ export function Sheet({ open, title, onClose, children, foot }: {
   foot?: ReactNode
 }) {
   const ref = useRef<HTMLDialogElement>(null)
+  const closeRef = useRef(onClose)
+  closeRef.current = onClose
   useEffect(() => {
     const d = ref.current
     if (!d) return
     if (open && !d.open) d.showModal()
     if (!open && d.open) d.close()
+  }, [open])
+  useEffect(() => {
+    if (!open) return
+    const entry = { close: () => closeRef.current() }
+    sheetOpened(entry)
+    return () => sheetClosed(entry)
   }, [open])
 
   return (

@@ -1,5 +1,5 @@
 {
-  "rewrites": [{ "source": "/((?!api/|assets/|icon-192.png|apple-touch-icon.png|ellenial-theme.js).*)", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/((?!api/|assets/|icon-192.png|icon-512.png|icon-maskable-512.png|manifest.webmanifest|apple-touch-icon.png|ellenial-theme.js).*)", "destination": "/index.html" }],
   "headers": [
     {
       "source": "/(.*)",

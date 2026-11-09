@@ -23,6 +23,7 @@ export { rememberedRooms, rememberedRoom, rememberRoom, forgetRoom, type Remembe
 export { SplitError, type SplitBackend } from './data/backend'
 
 export { splitCopy, type SplitCopy } from './copy/en'
+export { splitCopySv } from './copy/sv'
 export { CURRENCIES, parseAmount, formatAmount, type Currency } from './core/money'
 export { computeBalances, shareOut } from './core/balances'
 export { settleUp, type Transfer } from './core/settle'

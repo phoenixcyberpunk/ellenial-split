@@ -31,7 +31,7 @@ export function CreateRoom({ onBack, onCreated }: { onBack: () => void; onCreate
   return (
     <form className="sp-screen" onSubmit={(e) => { e.preventDefault(); void create() }}>
       <header className="sp-top">
-        <button type="button" className="sp-icon-btn" onClick={onBack} aria-label="Back"><Icon name="back" /></button>
+        <button type="button" className="sp-icon-btn" onClick={onBack} aria-label={appCopy.common.back}><Icon name="back" /></button>
       </header>
       <h1 className="sp-title">{c.title}</h1>
       <label className="sp-field">
