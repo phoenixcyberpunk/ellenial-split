@@ -40,6 +40,7 @@ export const appCopy = {
     drawn: 'Drawn',
     made: ' and designed by me, coded with the help of AI.',
     promise: 'Free · no ads · no trackers',
+    counter: 'In this app: a simple visit counter',
     by: 'An Ellenial tool',
     source: 'Source',
     thanks: 'Thanks',

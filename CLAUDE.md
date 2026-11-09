@@ -10,6 +10,10 @@ Gillefeeling will import later ("split costs for this hangout").
 - **Database:** Gillefeeling's Supabase project `gillefeeling` (ref `knvrvmqdxvcatsrvkrgx`, Stockholm, Free plan,
   max 2 active projects). Everything for this app is in its own `split` schema + `public.split_*` functions,
   with no link to Gillefeeling's tables or auth. Can move to its own project later if it grows.
+- **Visit counter (9 Nov 2026):** `api/visit.js` (Vercel function, ESM) calls `public.split_count_visit()` once per phone per
+  Stockholm day, which can only add 1 to `ellenial_split.daily_visits` (migration `supabase/migrations/20261109_split_daily_visits.sql`,
+  same as Quiz/Poll/Bingo/Present). Page side: `countVisit()` in `src/app/main.tsx`, real address only. Said in the footer and in
+  More → How private is this?
 - **Hosting:** Vercel team "The Ellenial Project", project `ellenial-split`. `main` → `split.ellenial.app` (production);
   `staging` branch → `split-staging.ellenial.app` (look here first, then merge to main).
 - **Workspace limits:** npm works (1 Nov), supabase.co doesn't → real backend only on Vercel deployments.

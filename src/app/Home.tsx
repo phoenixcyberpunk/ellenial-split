@@ -54,11 +54,12 @@ export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () =
         {pasteError ? <p className="sp-hint">{c.badLink}</p> : null}
       </details>
 
-      {/* The shared Ellenial footer (9 Nov 2026). No counter line until Split gets one. */}
+      {/* The shared Ellenial footer (9 Nov 2026). */}
       <footer className="app-footer ell-foot">
         <div className="ell-shared">
           <p><a href="https://ellenial.app/drawings">{appCopy.footer.drawn}</a>{appCopy.footer.made}</p>
           <p>{appCopy.footer.promise}</p>
+          <p>{appCopy.footer.counter}</p>
           <p><a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a> · <a href="https://ellenial.app/thanks">{appCopy.footer.thanks}</a></p>
         </div>
         <div className="ell-controls"><ThemeSwitch /></div>

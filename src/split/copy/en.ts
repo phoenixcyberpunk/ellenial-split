@@ -136,6 +136,7 @@ export const splitCopy = {
       'Everything you type is locked on your phone before it’s sent. The key is the part of the link after the #, and browsers never send that part to me.',
       'My server only sees random IDs, scrambled data and when things changed. Not names, not amounts, not what it was for.',
       'Rooms tidy themselves away 7 days after being settled, or after 30 days with no changes.',
+      'In this app: a simple visit counter.',
     ],
     deleteRoom: 'Delete this room now',
     deleteConfirm: 'Delete this room for everyone?',
