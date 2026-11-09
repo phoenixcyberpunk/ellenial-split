@@ -145,7 +145,8 @@ supabase/migrations/  schema, mirrored from what's applied
   automated contrast scan of every visible text (0 failures), theme switch saves/restores. Shipped to staging
   (split-staging.ellenial.app) for Ellen to look at. Ellen approved the same evening → merged to main, live on
   split.ellenial.app. Next: real-phone test.
-- 2026-11-07: LICENSE (AGPL-3.0, same text as the other Ellenial repos) and TRADEMARK.md added; the Ellenial name and logo are not covered by the code licence. Listed on ellenial.app as early alpha.
+- 2026-11-07: LICENSE (AGPL-3.0, same text as the other Ellenial repos) and TRADEMARK.md added; the Ellenial name and logo are not covered by the code licence. Listed on ellenial.app as early alpha (alpha from 9 Nov).
 - 2026-11-09: SEK only for now (Ellen's call): the currency picker is gone from Create and every new room is SEK. The module and model still support other currencies for later.
 - 2026-11-09: Swedish copy + EN | SV switch, back gesture closes sheets, installable as a PWA. Build + 9,233 maths checks pass; preview
   click-through in Swedish and dark mode (create, add expense, back closes sheet, More → delete confirm → back → back, switch to EN, reload keeps it), no errors. Ellen said push the same evening → live on split.ellenial.app.
+- 2026-11-09: Ellen moved Split to **alpha**. On ellenial.app it's now a linked Alpha card, placed after the other alpha apps and before Gillefeeling; Ongoing board stage → Alpha.
