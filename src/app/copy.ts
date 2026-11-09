@@ -21,7 +21,6 @@ export const appCopy = {
     roomPlaceholder: 'e.g. Göteborg weekend',
     myName: 'Your nickname',
     myNamePlaceholder: 'e.g. Alex',
-    currency: 'Currency',
     create: 'Create room',
     errors: {
       name: 'Give the room a name',

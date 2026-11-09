@@ -116,7 +116,7 @@ supabase/migrations/  schema, mirrored from what's applied
 ## Open
 - (Decided 8 Nov) The name is **Split**, in Swedish too. (Done 8 Nov) App icon: Ellen's drawing (banknote with arrows to three people) on a rose `#F0D5DC` tile; a light-arrow version exists for dark pages (ellenial.app/drawings/split-dark.png). The in-app `Logo` wordmark is still plain type, with a small "Ellenial" above it.
 - Live test on two real phones once deployed (Realtime "public channels" must be allowed in the project).
-- Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets, multiple currencies per room.
+- Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets.
 
 ## Status
 - 2026-10-29: Stack check of Gillefeeling. Decisions above. Schema applied + tested. Module + standalone app
@@ -129,4 +129,4 @@ supabase/migrations/  schema, mirrored from what's applied
   (split-staging.ellenial.app) for Ellen to look at. Ellen approved the same evening → merged to main, live on
   split.ellenial.app. Next: real-phone test.
 - 2026-11-07: LICENSE (AGPL-3.0, same text as the other Ellenial repos) and TRADEMARK.md added; the Ellenial name and logo are not covered by the code licence. Listed on ellenial.app as early alpha.
-- 2026-11-09: Currency default on Create is always SEK (Ellen's call); other currencies are one tap away.
+- 2026-11-09: SEK only for now (Ellen's call): the currency picker is gone from Create and every new room is SEK. The module and model still support other currencies for later.

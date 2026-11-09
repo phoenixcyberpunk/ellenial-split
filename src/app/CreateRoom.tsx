@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { Button, Chip, CURRENCIES, Icon, LIMITS, SplitError, createRoom, rememberRoom, useSplit, type Currency } from '../split'
+import { Button, Icon, LIMITS, SplitError, createRoom, rememberRoom, useSplit, type Currency } from '../split'
 import { appCopy } from './copy'
+
+/** One currency for now (decided 9 Nov). The module still supports others for later. */
+const APP_CURRENCY: Currency = 'SEK'
 
 export function CreateRoom({ onBack, onCreated }: { onBack: () => void; onCreated: (roomId: string, secret: string) => void }) {
   const { backend } = useSplit()
   const c = appCopy.create
   const [name, setName] = useState('')
   const [myName, setMyName] = useState('')
-  // SEK is the default for everyone (decided 9 Nov); people can pick another chip.
-  const [currency, setCurrency] = useState<Currency>('SEK')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -18,7 +19,7 @@ export function CreateRoom({ onBack, onCreated }: { onBack: () => void; onCreate
     setBusy(true)
     setError(null)
     try {
-      const { room, myId } = await createRoom(backend, { name: name.trim(), currency, myName: myName.trim() })
+      const { room, myId } = await createRoom(backend, { name: name.trim(), currency: APP_CURRENCY, myName: myName.trim() })
       rememberRoom({ roomId: room.roomId, secret: room.keys.secret, name: name.trim(), myId })
       onCreated(room.roomId, room.keys.secret)
     } catch (e) {
@@ -41,12 +42,6 @@ export function CreateRoom({ onBack, onCreated }: { onBack: () => void; onCreate
         <span className="sp-label">{c.myName}</span>
         <input value={myName} maxLength={LIMITS.memberName} placeholder={c.myNamePlaceholder} onChange={(e) => setMyName(e.target.value)} autoComplete="nickname" />
       </label>
-      <div className="sp-field">
-        <span className="sp-label">{c.currency}</span>
-        <div className="sp-chips">
-          {CURRENCIES.map((cur) => <Chip key={cur} selected={currency === cur} onClick={() => setCurrency(cur)}>{cur}</Chip>)}
-        </div>
-      </div>
       {error ? <p className="sp-error" role="alert">{error}</p> : null}
       <div className="sp-dock">
         <Button type="submit" disabled={busy}>{c.create}</Button>
