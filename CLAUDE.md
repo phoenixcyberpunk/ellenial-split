@@ -1,7 +1,7 @@
 # Ellenial Split — Project Guide
 
 Read this first in every session. It replaces re-reading the codebase.
-Working name **Split** / repo `ellenial-split` (real app name decided later).
+App name **Split** (decided 8 Nov), shown with a small "Ellenial" above it, so it reads "Ellenial Split"; repo `ellenial-split`.
 A free cost-splitting mini-app under the brand **Ellenial**, and a reusable module that
 Gillefeeling will import later ("split costs for this hangout").
 
@@ -117,7 +117,6 @@ supabase/migrations/  schema, mirrored from what's applied
 - (Decided 8 Nov) The name is **Split**, in Swedish too. (Done 8 Nov) App icon: Ellen's drawing (banknote with arrows to three people) on a rose `#F0D5DC` tile; a light-arrow version exists for dark pages (ellenial.app/drawings/split-dark.png). The in-app `Logo` wordmark is still plain type, with a small "Ellenial" above it.
 - Live test on two real phones once deployed (Realtime "public channels" must be allowed in the project).
 - Later: shares UI (weights), PWA install, Swedish copy, back gesture closing sheets, multiple currencies per room.
-- Currency default on Create follows the browser (showed USD in the preview); consider SEK/EUR first for Sweden.
 
 ## Status
 - 2026-10-29: Stack check of Gillefeeling. Decisions above. Schema applied + tested. Module + standalone app
@@ -130,3 +129,4 @@ supabase/migrations/  schema, mirrored from what's applied
   (split-staging.ellenial.app) for Ellen to look at. Ellen approved the same evening → merged to main, live on
   split.ellenial.app. Next: real-phone test.
 - 2026-11-07: LICENSE (AGPL-3.0, same text as the other Ellenial repos) and TRADEMARK.md added; the Ellenial name and logo are not covered by the code licence. Listed on ellenial.app as early alpha.
+- 2026-11-09: Currency default on Create is always SEK (Ellen's call); other currencies are one tap away.

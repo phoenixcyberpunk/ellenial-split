@@ -2,20 +2,13 @@ import { useState } from 'react'
 import { Button, Chip, CURRENCIES, Icon, LIMITS, SplitError, createRoom, rememberRoom, useSplit, type Currency } from '../split'
 import { appCopy } from './copy'
 
-/** Guess a currency from the phone's region; people can change it. */
-function guessCurrency(): Currency {
-  const region = (navigator.language.split('-')[1] ?? '').toUpperCase()
-  const map: Record<string, Currency> = { SE: 'SEK', NO: 'NOK', DK: 'DKK', US: 'USD', GB: 'GBP' }
-  if (map[region]) return map[region]
-  return ['DE', 'FR', 'NL', 'FI', 'ES', 'IT', 'AT', 'BE', 'IE', 'PT'].includes(region) ? 'EUR' : 'SEK'
-}
-
 export function CreateRoom({ onBack, onCreated }: { onBack: () => void; onCreated: (roomId: string, secret: string) => void }) {
   const { backend } = useSplit()
   const c = appCopy.create
   const [name, setName] = useState('')
   const [myName, setMyName] = useState('')
-  const [currency, setCurrency] = useState<Currency>(guessCurrency)
+  // SEK is the default for everyone (decided 9 Nov); people can pick another chip.
+  const [currency, setCurrency] = useState<Currency>('SEK')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
