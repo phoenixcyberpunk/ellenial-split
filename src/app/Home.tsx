@@ -61,7 +61,7 @@ export function Home({ badLink, onNew, onOpen }: { badLink: boolean; onNew: () =
           <p><a href="https://ellenial.app/drawings">{appCopy.footer.drawn}</a>{appCopy.footer.made}</p>
           <p>{appCopy.footer.promise}</p>
           <p>{appCopy.footer.counter}</p>
-          <p><a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a> · <a href="https://ellenial.app/thanks">{appCopy.footer.thanks}</a></p>
+          <p><a href={config.brandUrl}>{appCopy.footer.by}</a> · <a href={config.repoUrl}>{appCopy.footer.source}</a> · <a href="https://ellenial.app/thanks">{appCopy.footer.thanks}</a> · <a href={appCopy.footer.feedbackUrl}>{appCopy.footer.feedback}</a></p>
         </div>
         <div className="ell-controls"><LangSwitch /><ThemeSwitch /></div>
       </footer>

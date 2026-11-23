@@ -52,6 +52,8 @@ const en = {
     by: 'An Ellenial tool',
     source: 'Source',
     thanks: 'Thanks',
+    feedback: 'Feedback',
+    feedbackUrl: 'https://ellenial.app/feedback?app=split',
   },
 }
 
@@ -106,6 +108,8 @@ const sv: AppCopy = {
     by: 'Ett Ellenial-verktyg',
     source: 'GitHub',
     thanks: 'Tack',
+    feedback: 'Feedback',
+    feedbackUrl: 'https://ellenial.app/sv/feedback?app=split',
   },
 }
 
