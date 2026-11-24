@@ -150,3 +150,4 @@ supabase/migrations/  schema, mirrored from what's applied
 - 2026-11-09: Swedish copy + EN | SV switch, back gesture closes sheets, installable as a PWA. Build + 9,233 maths checks pass; preview
   click-through in Swedish and dark mode (create, add expense, back closes sheet, More → delete confirm → back → back, switch to EN, reload keeps it), no errors. Ellen said push the same evening → live on split.ellenial.app.
 - 2026-11-09: Ellen moved Split to **alpha**. On ellenial.app it's now a linked Alpha card, placed after the other alpha apps and before Gillefeeling; Ongoing board stage → Alpha.
+- 2026-11-24: GitHub security alerts closed (9 from Dependabot, 1 high: Vite's dev server on Windows). Vite 5 → 7.3.8, plugin-react 4.7 (Vercel runs Node 24, fine). Build tools only. Build + 9,233 maths checks pass, npm audit 0; staging built READY, then live (Ellen: "fix them all … push directly after that to live").
